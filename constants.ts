@@ -1,8 +1,8 @@
 import { ClassInfo } from './types';
 
 export const DEFAULT_CLASSES: ClassInfo[] = [
-  { id: '1', name: 'Grade 9 - Section A', subject: 'Mathematics', durationMinutes: 90 },
-  { id: '2', name: 'Grade 9 - Section B', subject: 'Mathematics', durationMinutes: 90 },
+  { id: '1', name: 'Grade 9 - Section C', subject: 'Mathematics', durationMinutes: 90 },
+  { id: '2', name: 'Grade 9 - Section C', subject: 'Mathematics', durationMinutes: 90 },
 ];
 
 export const INSTRUCTIONS = [

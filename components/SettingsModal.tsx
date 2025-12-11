@@ -148,6 +148,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, currentS
                             onChange={(e) => updateClassGroup(idx, 'grade', e.target.value)}
                             className="w-full px-3 py-2 rounded-lg bg-white border border-exam-border focus:border-exam-primary text-sm font-medium outline-none appearance-none"
                           >
+                            {!GRADE_OPTIONS.includes(grade) && (
+                              <option value={grade}>Grade {grade}</option>
+                            )}
                             {GRADE_OPTIONS.map(g => (
                               <option key={g} value={g}>Grade {g}</option>
                             ))}
@@ -165,6 +168,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, currentS
                             onChange={(e) => updateClassGroup(idx, 'section', e.target.value)}
                             className="w-full px-3 py-2 rounded-lg bg-white border border-exam-border focus:border-exam-primary text-sm font-medium outline-none appearance-none"
                           >
+                            {!SECTION_OPTIONS.includes(section) && (
+                              <option value={section}>Section {section}</option>
+                            )}
                             {SECTION_OPTIONS.map(s => (
                               <option key={s} value={s}>Section {s}</option>
                             ))}
@@ -182,6 +188,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, currentS
                             onChange={(e) => updateClassField(idx, 'subject', e.target.value)}
                             className="w-full px-3 py-2 rounded-lg bg-white border border-exam-border focus:border-exam-primary text-sm font-medium outline-none appearance-none"
                           >
+                            {!SUBJECT_OPTIONS.includes(cls.subject) && (
+                              <option value={cls.subject}>{cls.subject}</option>
+                            )}
                             {SUBJECT_OPTIONS.map(sub => (
                               <option key={sub} value={sub}>{sub}</option>
                             ))}
