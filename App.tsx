@@ -30,17 +30,17 @@ const App: React.FC = () => {
       </div>
 
       {/* Main Content: 2-Column Grid */}
-      <main className="flex-1 w-full px-8 pb-8 grid grid-cols-12 gap-6 min-h-0">
+      <main className="flex-1 w-full px-8 min-h-0 grid grid-cols-12 gap-6">
         
         {/* Left Column: Timer Card (5 cols) */}
-        <section className="col-span-12 lg:col-span-5 h-full">
+        <section className="col-span-12 lg:col-span-5 h-full pb-4">
           <div className="h-full modern-card p-8 flex flex-col items-center justify-center relative overflow-hidden bg-gradient-to-b from-white to-exam-surfaceAlt">
             <Timer durationMinutes={appState.timerDurationMinutes} />
           </div>
         </section>
 
         {/* Right Column: Info Stack (7 cols) */}
-        <section className="col-span-12 lg:col-span-7 flex flex-col gap-6 h-full min-h-0">
+        <section className="col-span-12 lg:col-span-7 flex flex-col gap-6 h-full min-h-0 pb-4">
           
           {/* Top: Class Table */}
           <div className="shrink-0">
@@ -54,10 +54,17 @@ const App: React.FC = () => {
         </section>
       </main>
 
+      {/* Footer */}
+      <footer className="w-full py-3 text-center shrink-0 bg-exam-bg/50 backdrop-blur-sm border-t border-exam-border/50">
+        <p className="text-[10px] md:text-xs font-bold text-exam-textMuted/60 uppercase tracking-widest">
+          Developed by MEIS ICT Department
+        </p>
+      </footer>
+
       {/* Settings FAB */}
       <button
         onClick={() => setIsSettingsOpen(true)}
-        className="fixed bottom-8 right-8 z-50 p-4 bg-white text-exam-textMuted hover:text-exam-primary rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-exam-border group"
+        className="fixed bottom-12 right-8 z-50 p-4 bg-white text-exam-textMuted hover:text-exam-primary rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-exam-border group"
         title="Settings"
       >
         <Settings size={24} className="group-hover:rotate-45 transition-transform duration-500" />
