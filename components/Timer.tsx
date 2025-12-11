@@ -44,10 +44,9 @@ const Timer: React.FC<TimerProps> = ({ durationMinutes }) => {
   const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
   // Progress Ring Calculation
-  // Increased radius to fill space (was 130)
-  const radius = 180;
-  const strokeWidth = 16;
-  // Calculate SVG dimensions based on radius and stroke
+  // Reduced radius from 180 to 145 to make it smaller
+  const radius = 145;
+  const strokeWidth = 12; 
   const center = radius + strokeWidth;
   const size = center * 2;
   const circumference = 2 * Math.PI * radius;
@@ -63,14 +62,33 @@ const Timer: React.FC<TimerProps> = ({ durationMinutes }) => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full relative">
-      {/* Background Decor */}
-      <div className={`absolute w-full h-full bg-gradient-to-b ${isLowTime ? 'from-exam-danger/5' : 'from-exam-primary/5'} to-transparent rounded-full blur-3xl opacity-50 pointer-events-none`} />
+      
+      {/* Controls - Moved to Top */}
+      <div className="flex gap-4 mb-6 z-20 shrink-0">
+        <button
+          onClick={toggleTimer}
+          className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white shadow-md border border-exam-border text-exam-primary hover:bg-exam-primary hover:text-white transition-all hover:scale-105 active:scale-95 font-semibold"
+        >
+          {isActive ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" />}
+          {isActive ? 'Pause' : 'Start'}
+        </button>
+        <button
+          onClick={resetTimer}
+          className="p-2.5 rounded-xl bg-white shadow-md border border-exam-border text-exam-danger hover:bg-exam-danger hover:text-white transition-all hover:scale-105 active:scale-95"
+          title="Reset Timer"
+        >
+          <RotateCcw size={20} />
+        </button>
+      </div>
 
-      <div className="relative w-full h-full flex items-center justify-center p-4">
-        {/* SVG Ring - Responsive viewBox to scale within container */}
+      <div className="relative w-full flex-1 flex items-center justify-center min-h-0">
+        {/* Background Decor */}
+        <div className={`absolute w-[80%] h-[80%] bg-gradient-to-b ${isLowTime ? 'from-exam-danger/5' : 'from-exam-primary/5'} to-transparent rounded-full blur-3xl opacity-50 pointer-events-none`} />
+
+        {/* SVG Ring - Added max-h constraint */}
         <svg 
           viewBox={`0 0 ${size} ${size}`} 
-          className="w-full h-full max-h-[70vh] transform -rotate-90 drop-shadow-xl"
+          className="w-auto h-full max-h-[55vh] transform -rotate-90 drop-shadow-xl"
         >
           {/* Background Circle */}
           <circle
@@ -99,38 +117,22 @@ const Timer: React.FC<TimerProps> = ({ durationMinutes }) => {
 
         {/* Inner Content - Centered absolutely */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-          <div className={`flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-widest ${isLowTime ? 'bg-exam-danger/10 text-exam-danger' : 'bg-exam-primary/10 text-exam-primary'}`}>
-            <TimerIcon size={16} />
+          <div className={`flex items-center gap-2 mb-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest ${isLowTime ? 'bg-exam-danger/10 text-exam-danger' : 'bg-exam-primary/10 text-exam-primary'}`}>
+            <TimerIcon size={14} />
             <span>Time Remaining</span>
           </div>
           
-          {/* Increased font size */}
-          <span className={`text-8xl lg:text-9xl font-sans font-bold tracking-tighter tabular-nums transition-colors duration-300 ${isLowTime ? 'text-exam-danger' : 'text-exam-text'}`}>
+          {/* Adjusted font size for smaller circle */}
+          <span className={`text-7xl lg:text-8xl font-sans font-bold tracking-tighter tabular-nums transition-colors duration-300 ${isLowTime ? 'text-exam-danger' : 'text-exam-text'}`}>
             {formattedTime}
           </span>
           
-          <div className="h-8 mt-4">
-            <span className={`text-lg font-medium transition-opacity duration-300 ${isActive ? 'text-emerald-500 opacity-100' : 'text-exam-textMuted opacity-50'}`}>
+          <div className="h-6 mt-2">
+            <span className={`text-base font-medium transition-opacity duration-300 ${isActive ? 'text-emerald-500 opacity-100' : 'text-exam-textMuted opacity-50'}`}>
               {isActive ? '● Session Active' : 'Session Paused'}
             </span>
           </div>
         </div>
-      </div>
-
-      {/* Controls Overlay - Permanently visible at bottom */}
-      <div className="absolute bottom-6 flex gap-4 z-20">
-        <button
-          onClick={toggleTimer}
-          className="p-5 rounded-2xl bg-white shadow-lg border border-exam-border text-exam-primary hover:bg-exam-primary hover:text-white transition-all hover:scale-105 active:scale-95"
-        >
-          {isActive ? <Pause size={28} fill="currentColor" /> : <Play size={28} fill="currentColor" />}
-        </button>
-        <button
-          onClick={resetTimer}
-          className="p-5 rounded-2xl bg-white shadow-lg border border-exam-border text-exam-danger hover:bg-exam-danger hover:text-white transition-all hover:scale-105 active:scale-95"
-        >
-          <RotateCcw size={28} />
-        </button>
       </div>
     </div>
   );

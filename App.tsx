@@ -30,17 +30,17 @@ const App: React.FC = () => {
       </div>
 
       {/* Main Content: 2-Column Grid */}
-      <main className="flex-1 w-full px-8 min-h-0 grid grid-cols-12 gap-6 mb-2">
+      <main className="flex-1 w-full px-8 min-h-0 grid grid-cols-12 gap-6 mb-6">
         
         {/* Left Column: Timer Card (5 cols) */}
-        <section className="col-span-12 lg:col-span-5 h-full pb-2">
-          <div className="h-full modern-card p-8 flex flex-col items-center justify-center relative overflow-hidden bg-gradient-to-b from-white to-exam-surfaceAlt">
+        <section className="col-span-12 lg:col-span-5 h-full">
+          <div className="h-full modern-card p-6 flex flex-col items-center justify-center relative overflow-hidden bg-gradient-to-b from-white to-exam-surfaceAlt">
             <Timer durationMinutes={appState.timerDurationMinutes} />
           </div>
         </section>
 
         {/* Right Column: Info Stack (7 cols) */}
-        <section className="col-span-12 lg:col-span-7 flex flex-col gap-6 h-full min-h-0 pb-2">
+        <section className="col-span-12 lg:col-span-7 flex flex-col gap-6 h-full min-h-0">
           
           {/* Top: Class Table */}
           <div className="shrink-0">
