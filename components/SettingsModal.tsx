@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { X, Plus, Trash2, Save, Layout } from 'lucide-react';
+import { X, Plus, Trash2, Save, Layout, ChevronDown } from 'lucide-react';
 import { AppState, ClassInfo } from '../types';
+import { GRADE_OPTIONS, SECTION_OPTIONS, SUBJECT_OPTIONS, DURATION_OPTIONS } from '../constants';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -14,10 +15,33 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, currentS
 
   if (!isOpen) return null;
 
-  const handleClassChange = (index: number, field: keyof ClassInfo, value: any) => {
+  // Helper to parse current name into Grade/Section if possible
+  const parseClassName = (name: string) => {
+    const match = name.match(/Grade (\d+) - Section ([A-Z])/);
+    if (match) {
+      return { grade: match[1], section: match[2] };
+    }
+    return { grade: GRADE_OPTIONS[0], section: SECTION_OPTIONS[0] };
+  };
+
+  const updateClassField = (index: number, field: keyof ClassInfo, value: any) => {
     const newClasses = [...formData.classes];
     newClasses[index] = { ...newClasses[index], [field]: value };
     setFormData({ ...formData, classes: newClasses });
+  };
+
+  const updateClassGroup = (index: number, type: 'grade' | 'section', value: string) => {
+    const currentName = formData.classes[index].name;
+    const { grade, section } = parseClassName(currentName);
+    
+    let newName = '';
+    if (type === 'grade') {
+      newName = `Grade ${value} - Section ${section}`;
+    } else {
+      newName = `Grade ${grade} - Section ${value}`;
+    }
+    
+    updateClassField(index, 'name', newName);
   };
 
   const addClass = () => {
@@ -25,7 +49,12 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, currentS
       ...formData,
       classes: [
         ...formData.classes,
-        { id: Date.now().toString(), name: 'New Class', subject: 'Subject', durationMinutes: 60 }
+        { 
+          id: Date.now().toString(), 
+          name: `Grade ${GRADE_OPTIONS[0]} - Section ${SECTION_OPTIONS[0]}`, 
+          subject: SUBJECT_OPTIONS[0], 
+          durationMinutes: 90 
+        }
       ]
     });
   };
@@ -42,7 +71,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, currentS
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-exam-text/20 backdrop-blur-sm p-4">
-      <div className="bg-white rounded-3xl w-full max-w-2xl shadow-2xl animate-scale-up border border-exam-border flex flex-col max-h-[85vh]">
+      <div className="bg-white rounded-3xl w-full max-w-4xl shadow-2xl animate-scale-up border border-exam-border flex flex-col max-h-[90vh]">
         
         {/* Header */}
         <div className="flex justify-between items-center px-8 py-6 border-b border-exam-border">
@@ -74,9 +103,10 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, currentS
               </label>
               
               <label className="block">
-                 <span className="text-sm font-medium text-exam-text mb-1 block">Timer Duration (Minutes)</span>
+                 <span className="text-sm font-medium text-exam-text mb-1 block">Global Timer Duration (Minutes)</span>
                  <input
                    type="number"
+                   min="1"
                    value={formData.timerDurationMinutes}
                    onChange={(e) => setFormData({ ...formData, timerDurationMinutes: parseInt(e.target.value) || 0 })}
                    className="w-full px-4 py-3 rounded-xl border border-exam-border bg-exam-bg focus:bg-white focus:border-exam-primary focus:ring-2 focus:ring-exam-primary/10 outline-none transition-all font-medium"
@@ -97,38 +127,96 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, currentS
               </button>
             </div>
             
-            <div className="space-y-3">
-              {formData.classes.map((cls, idx) => (
-                <div key={cls.id} className="flex gap-3 items-center bg-exam-bg p-1.5 rounded-xl border border-transparent hover:border-exam-border hover:bg-white hover:shadow-sm transition-all group">
-                  <div className="w-8 h-8 flex items-center justify-center text-xs font-bold text-exam-textMuted bg-white rounded-lg border border-exam-border">
-                    {idx + 1}
+            <div className="space-y-4">
+              {formData.classes.map((cls, idx) => {
+                const { grade, section } = parseClassName(cls.name);
+                return (
+                  <div key={cls.id} className="bg-exam-bg p-4 rounded-xl border border-transparent hover:border-exam-border hover:bg-white hover:shadow-sm transition-all group">
+                    <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
+                      
+                      {/* Index Badge */}
+                      <div className="w-8 h-8 flex shrink-0 items-center justify-center text-xs font-bold text-exam-textMuted bg-white rounded-lg border border-exam-border">
+                        {idx + 1}
+                      </div>
+
+                      {/* Grade Select */}
+                      <div className="flex-1 w-full md:w-auto min-w-[140px]">
+                        <label className="text-[10px] font-bold text-exam-textMuted uppercase tracking-wider mb-1 block">Grade</label>
+                        <div className="relative">
+                          <select
+                            value={grade}
+                            onChange={(e) => updateClassGroup(idx, 'grade', e.target.value)}
+                            className="w-full px-3 py-2 rounded-lg bg-white border border-exam-border focus:border-exam-primary text-sm font-medium outline-none appearance-none"
+                          >
+                            {GRADE_OPTIONS.map(g => (
+                              <option key={g} value={g}>Grade {g}</option>
+                            ))}
+                          </select>
+                          <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-exam-textMuted pointer-events-none" size={14} />
+                        </div>
+                      </div>
+
+                      {/* Section Select */}
+                      <div className="flex-1 w-full md:w-auto min-w-[120px]">
+                         <label className="text-[10px] font-bold text-exam-textMuted uppercase tracking-wider mb-1 block">Section</label>
+                         <div className="relative">
+                          <select
+                            value={section}
+                            onChange={(e) => updateClassGroup(idx, 'section', e.target.value)}
+                            className="w-full px-3 py-2 rounded-lg bg-white border border-exam-border focus:border-exam-primary text-sm font-medium outline-none appearance-none"
+                          >
+                            {SECTION_OPTIONS.map(s => (
+                              <option key={s} value={s}>Section {s}</option>
+                            ))}
+                          </select>
+                          <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-exam-textMuted pointer-events-none" size={14} />
+                        </div>
+                      </div>
+
+                      {/* Subject Select */}
+                      <div className="flex-[2] w-full md:w-auto">
+                        <label className="text-[10px] font-bold text-exam-textMuted uppercase tracking-wider mb-1 block">Subject</label>
+                        <div className="relative">
+                          <select
+                            value={cls.subject}
+                            onChange={(e) => updateClassField(idx, 'subject', e.target.value)}
+                            className="w-full px-3 py-2 rounded-lg bg-white border border-exam-border focus:border-exam-primary text-sm font-medium outline-none appearance-none"
+                          >
+                            {SUBJECT_OPTIONS.map(sub => (
+                              <option key={sub} value={sub}>{sub}</option>
+                            ))}
+                          </select>
+                          <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-exam-textMuted pointer-events-none" size={14} />
+                        </div>
+                      </div>
+
+                       {/* Duration Select */}
+                       <div className="flex-1 w-full md:w-auto min-w-[160px]">
+                        <label className="text-[10px] font-bold text-exam-textMuted uppercase tracking-wider mb-1 block">Duration</label>
+                        <div className="relative">
+                          <select
+                            value={cls.durationMinutes}
+                            onChange={(e) => updateClassField(idx, 'durationMinutes', parseInt(e.target.value))}
+                            className="w-full px-3 py-2 rounded-lg bg-white border border-exam-border focus:border-exam-primary text-sm font-medium outline-none appearance-none"
+                          >
+                             {DURATION_OPTIONS.map(opt => (
+                               <option key={opt.value} value={opt.value}>{opt.label}</option>
+                             ))}
+                          </select>
+                          <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-exam-textMuted pointer-events-none" size={14} />
+                        </div>
+                      </div>
+
+                      {/* Delete Button */}
+                      <div className="flex items-end h-full pb-1">
+                        <button onClick={() => removeClass(idx)} className="p-2 text-exam-textMuted hover:text-exam-danger hover:bg-exam-danger/10 rounded-lg transition-colors" title="Remove Class">
+                          <Trash2 size={18} />
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  <input
-                    type="text"
-                    value={cls.name}
-                    onChange={(e) => handleClassChange(idx, 'name', e.target.value)}
-                    className="flex-1 px-3 py-2 rounded-lg bg-transparent hover:bg-exam-surfaceAlt focus:bg-white border border-transparent focus:border-exam-primary/50 text-sm font-medium outline-none transition-all"
-                    placeholder="Class Name"
-                  />
-                  <input
-                    type="text"
-                    value={cls.subject}
-                    onChange={(e) => handleClassChange(idx, 'subject', e.target.value)}
-                    className="flex-1 px-3 py-2 rounded-lg bg-transparent hover:bg-exam-surfaceAlt focus:bg-white border border-transparent focus:border-exam-primary/50 text-sm outline-none transition-all"
-                    placeholder="Subject"
-                  />
-                   <input
-                    type="number"
-                    value={cls.durationMinutes}
-                    onChange={(e) => handleClassChange(idx, 'durationMinutes', parseInt(e.target.value))}
-                    className="w-20 px-3 py-2 rounded-lg bg-transparent hover:bg-exam-surfaceAlt focus:bg-white border border-transparent focus:border-exam-primary/50 text-sm text-center outline-none transition-all"
-                    placeholder="Mins"
-                  />
-                  <button onClick={() => removeClass(idx)} className="p-2 text-exam-textMuted hover:text-exam-danger hover:bg-exam-danger/10 rounded-lg transition-colors">
-                    <Trash2 size={16} />
-                  </button>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </section>
         </div>

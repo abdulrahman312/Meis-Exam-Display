@@ -16,3 +16,28 @@ export const INSTRUCTIONS = [
 
 export const LOGO_URL = "https://i.ibb.co/bgFrgXkW/meis.png";
 export const ARABIC_DUA = "اللهم لا سهل إلا ما جعلته سهلا، وأنت تجعل الصعب إن شئت سهلا";
+
+// Dropdown Options
+export const GRADE_OPTIONS = Array.from({ length: 9 }, (_, i) => (i + 4).toString()); // 4 to 12
+export const SECTION_OPTIONS = ['C', 'D', 'E', 'F', 'H', 'J', 'L', 'N'];
+export const SUBJECT_OPTIONS = [
+  'Mathematics',
+  'Biology',
+  'English',
+  'Chemistry',
+  'Physics',
+  'Arabic',
+  'Science',
+  'Vocabulary',
+  'Spelling',
+  'RCV',
+  'Literature'
+];
+
+export const DURATION_OPTIONS = [
+  { label: '1 Hour', value: 60 },
+  { label: '1 Hour 30 Minutes', value: 90 },
+  { label: '2 Hours', value: 120 },
+  { label: '2 Hours 30 Minutes', value: 150 },
+  { label: '3 Hours', value: 180 },
+];

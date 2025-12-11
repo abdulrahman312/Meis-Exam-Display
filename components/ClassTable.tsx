@@ -1,12 +1,18 @@
 import React from 'react';
 import { ClassInfo } from '../types';
 import { Users, BookOpen, Clock } from 'lucide-react';
+import { DURATION_OPTIONS } from '../constants';
 
 interface ClassTableProps {
   classes: ClassInfo[];
 }
 
 const ClassTable: React.FC<ClassTableProps> = ({ classes }) => {
+  const getDurationLabel = (minutes: number) => {
+    const option = DURATION_OPTIONS.find(opt => opt.value === minutes);
+    return option ? option.label : `${minutes} Minutes`;
+  };
+
   return (
     <div className="modern-card overflow-hidden">
       <div className="px-6 py-4 border-b border-exam-border bg-exam-surfaceAlt/50 flex items-center gap-2">
@@ -39,7 +45,7 @@ const ClassTable: React.FC<ClassTableProps> = ({ classes }) => {
               <td className="py-4 px-6 text-right">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-exam-surfaceAlt text-exam-textMuted text-sm font-medium">
                   <Clock size={14} />
-                  {cls.durationMinutes}m
+                  {getDurationLabel(cls.durationMinutes)}
                 </div>
               </td>
             </tr>
