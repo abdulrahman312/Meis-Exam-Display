@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import { LOGO_URL } from '../constants';
 
 interface HeaderProps {
@@ -36,8 +36,8 @@ const Header: React.FC<HeaderProps> = ({ examTitle }) => {
 
       {/* Center: Exam Title */}
       <div className="flex flex-col items-center justify-center flex-1 mx-8 text-center">
-        <div className="px-8 py-3 bg-white rounded-2xl border border-exam-border shadow-sm">
-          <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-exam-primary to-exam-accent tracking-tight">
+        <div className="px-12 py-5 bg-white rounded-3xl border border-exam-border shadow-sm transform hover:scale-[1.02] transition-transform duration-300">
+          <h2 className="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-exam-primary to-exam-accent tracking-tight leading-none pb-1">
             {examTitle}
           </h2>
         </div>
@@ -46,11 +46,11 @@ const Header: React.FC<HeaderProps> = ({ examTitle }) => {
       {/* Right: Date/Time Widget */}
       <div className="flex items-center gap-6">
         <div className="hidden lg:flex flex-col items-end text-right">
-          <div className="flex items-center gap-2 text-exam-textMuted text-sm font-medium">
-            <Calendar size={14} />
+          <div className="flex items-center gap-2 text-exam-textMuted text-lg font-semibold mb-1">
+            <Calendar size={20} className="text-exam-primary" />
             {currentTime.toLocaleDateString('en-US', dateOptions)}
           </div>
-          <div className="flex items-center gap-2 text-exam-text text-3xl font-bold tracking-tighter">
+          <div className="flex items-center gap-2 text-exam-text text-6xl font-black tracking-tighter tabular-nums leading-none">
             {currentTime.toLocaleTimeString('en-US', timeOptions)}
           </div>
         </div>
