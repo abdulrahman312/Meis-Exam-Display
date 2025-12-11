@@ -20,15 +20,15 @@ const Header: React.FC<HeaderProps> = ({ examTitle }) => {
   return (
     <header className="flex items-center justify-between w-full px-8 py-6 shrink-0 z-10">
       {/* Left: School Brand */}
-      <div className="flex items-center gap-4">
-        <div className="w-16 h-16 rounded-2xl bg-white p-2 shadow-sm border border-exam-border flex items-center justify-center">
+      <div className="flex items-center gap-6">
+        <div className="w-24 h-24 rounded-2xl bg-white p-2 shadow-sm border border-exam-border flex items-center justify-center">
           <img src={LOGO_URL} alt="MEIS Logo" className="w-full h-full object-contain" />
         </div>
         <div className="flex flex-col">
-          <h1 className="text-xl font-bold tracking-tight text-exam-text">
+          <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-exam-text">
             MEIS – Al Muruj
           </h1>
-          <span className="text-xs font-semibold uppercase tracking-wider text-exam-textMuted">
+          <span className="text-sm font-semibold uppercase tracking-wider text-exam-textMuted mt-1">
             Exam Control Center
           </span>
         </div>
