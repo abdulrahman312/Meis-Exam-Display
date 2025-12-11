@@ -55,8 +55,8 @@ const App: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="w-full py-3 text-center shrink-0 bg-exam-bg/50 backdrop-blur-sm border-t border-exam-border/50">
-        <p className="text-[10px] md:text-xs font-bold text-exam-textMuted/60 uppercase tracking-widest">
+      <footer className="w-full py-4 text-center shrink-0 bg-exam-bg/50 backdrop-blur-sm border-t border-exam-border/50">
+        <p className="text-xs md:text-sm font-bold text-black uppercase tracking-widest">
           Developed by MEIS ICT Department
         </p>
       </footer>
@@ -64,7 +64,7 @@ const App: React.FC = () => {
       {/* Settings FAB */}
       <button
         onClick={() => setIsSettingsOpen(true)}
-        className="fixed bottom-12 right-8 z-50 p-4 bg-white text-exam-textMuted hover:text-exam-primary rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-exam-border group"
+        className="fixed bottom-20 right-8 z-50 p-4 bg-white text-exam-textMuted hover:text-exam-primary rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-exam-border group"
         title="Settings"
       >
         <Settings size={24} className="group-hover:rotate-45 transition-transform duration-500" />
