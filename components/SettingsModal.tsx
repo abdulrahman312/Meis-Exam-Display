@@ -234,7 +234,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, currentS
             <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Color Theme</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {THEMES.map((theme) => {
-                const isSelected = formData.theme === theme.id || (!formData.theme && theme.id === 'light');
+                const isSelected = formData.theme === theme.id || (!formData.theme && theme.id === 'ocean');
                 
                 // Helper to get color style for preview
                 const bgStyle = { backgroundColor: `rgb(${theme.colors['--color-bg']})` };

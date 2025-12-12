@@ -44,22 +44,6 @@ export const DURATION_OPTIONS = [
 
 export const THEMES: Theme[] = [
   {
-    id: 'light',
-    name: 'Classic Slate',
-    colors: {
-      '--color-bg': '248 250 252',         // Slate 50
-      '--color-surface': '255 255 255',    // White
-      '--color-surface-alt': '241 245 249',// Slate 100
-      '--color-primary': '79 70 229',      // Indigo 600
-      '--color-primary-light': '129 140 248', // Indigo 400
-      '--color-accent': '14 165 233',      // Sky 500
-      '--color-danger': '225 29 72',       // Rose 600
-      '--color-text': '15 23 42',          // Slate 900
-      '--color-text-muted': '71 85 105',   // Slate 600
-      '--color-border': '226 232 240',     // Slate 200
-    }
-  },
-  {
     id: 'ocean',
     name: 'Ocean Breeze',
     colors: {
@@ -73,6 +57,22 @@ export const THEMES: Theme[] = [
       '--color-text': '12 74 110',         // Sky 900
       '--color-text-muted': '3 105 161',   // Sky 700
       '--color-border': '186 230 253',     // Sky 200
+    }
+  },
+  {
+    id: 'royal',
+    name: 'Royal Indigo',
+    colors: {
+      '--color-bg': '238 242 255',         // Indigo 50
+      '--color-surface': '255 255 255',    // White
+      '--color-surface-alt': '224 231 255',// Indigo 100
+      '--color-primary': '67 56 202',      // Indigo 700
+      '--color-primary-light': '99 102 241', // Indigo 500
+      '--color-accent': '79 70 229',      // Indigo 600
+      '--color-danger': '220 38 38',       // Red 600
+      '--color-text': '49 46 129',         // Indigo 900
+      '--color-text-muted': '55 48 163',   // Indigo 800
+      '--color-border': '199 210 254',     // Indigo 200
     }
   },
   {

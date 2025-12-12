@@ -14,7 +14,7 @@ const App: React.FC = () => {
     examTitle: 'First Semester Final Exam',
     classes: DEFAULT_CLASSES,
     timerDurationMinutes: 90,
-    theme: 'light',
+    theme: 'ocean',
   });
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);

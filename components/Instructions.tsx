@@ -19,13 +19,13 @@ const Instructions: React.FC = () => {
   };
 
   return (
-    <div className="modern-card h-full flex flex-col overflow-hidden">
-      <div className="px-6 py-4 border-b border-exam-border bg-exam-surfaceAlt/50 flex items-center justify-between shrink-0">
+    <div className="modern-card h-full flex flex-col overflow-hidden !border-exam-primary/20 shadow-sm">
+      <div className="px-6 py-4 border-b border-exam-primary/10 bg-exam-primary/5 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-2">
           <Info className="text-exam-primary" size={20} />
           <h3 className="font-semibold text-exam-text">Student Instructions</h3>
         </div>
-        <span className="text-xs font-bold text-exam-textMuted uppercase tracking-wider bg-white px-2 py-1 rounded border border-exam-border">
+        <span className="text-xs font-bold text-exam-primary/80 uppercase tracking-wider bg-white/50 px-2 py-1 rounded border border-exam-primary/20">
           Read Carefully
         </span>
       </div>
@@ -38,7 +38,7 @@ const Instructions: React.FC = () => {
         <ul className="flex flex-col justify-between h-full">
           {INSTRUCTIONS.map((inst, idx) => (
             <li key={idx} className="flex gap-4 group items-center">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-exam-surfaceAlt border border-exam-border flex items-center justify-center text-exam-primary font-bold text-sm group-hover:bg-exam-primary group-hover:text-white transition-colors shadow-sm">
+              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-exam-primary/5 border border-exam-primary/20 flex items-center justify-center text-exam-primary font-bold text-sm group-hover:bg-exam-primary group-hover:text-white transition-colors shadow-sm">
                 {idx + 1}
               </span>
               <p className="text-base xl:text-lg text-exam-text/90 leading-tight">
