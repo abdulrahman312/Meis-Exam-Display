@@ -51,7 +51,7 @@ const DuaBanner: React.FC = () => {
         {/* Inner White Box */}
         <div className="relative m-[3px] bg-exam-surface rounded-[13px] py-5 px-6 text-center min-h-[90px] flex items-center justify-center">
           <p 
-            className={`font-arabic text-3xl lg:text-4xl font-bold drop-shadow-sm bg-clip-text text-transparent pb-2 transition-all duration-500 ease-in-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+            className={`font-arabic text-3xl lg:text-4xl font-bold drop-shadow-sm bg-clip-text text-transparent animate-border-slide pb-2 transition-all duration-500 ease-in-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
             style={{ 
               lineHeight: '1.6',
               backgroundImage: `linear-gradient(90deg, rgb(var(--color-primary)), rgb(var(--color-accent)), rgb(var(--color-primary)))`
