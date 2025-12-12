@@ -122,5 +122,69 @@ export const THEMES: Theme[] = [
       '--color-text-muted': '190 18 60',   // Rose 700
       '--color-border': '254 205 211',     // Rose 200
     }
+  },
+  {
+    id: 'amber',
+    name: 'Golden Amber',
+    colors: {
+      '--color-bg': '255 251 235',         // Amber 50
+      '--color-surface': '255 255 255',    // White
+      '--color-surface-alt': '254 243 199',// Amber 100
+      '--color-primary': '217 119 6',      // Amber 600
+      '--color-primary-light': '251 191 36', // Amber 400
+      '--color-accent': '249 115 22',      // Orange 500
+      '--color-danger': '220 38 38',       // Red 600
+      '--color-text': '120 53 15',         // Amber 900
+      '--color-text-muted': '180 83 9',    // Amber 700
+      '--color-border': '253 230 138',     // Amber 200
+    }
+  },
+  {
+    id: 'teal',
+    name: 'Tropical Teal',
+    colors: {
+      '--color-bg': '240 253 250',         // Teal 50
+      '--color-surface': '255 255 255',    // White
+      '--color-surface-alt': '204 251 241',// Teal 100
+      '--color-primary': '13 148 136',     // Teal 600
+      '--color-primary-light': '45 212 191', // Teal 400
+      '--color-accent': '6 182 212',       // Cyan 500
+      '--color-danger': '220 38 38',       // Red 600
+      '--color-text': '19 78 74',          // Teal 900
+      '--color-text-muted': '15 118 110',  // Teal 700
+      '--color-border': '153 246 228',     // Teal 200
+    }
+  },
+  {
+    id: 'blue',
+    name: 'Azure Blue',
+    colors: {
+      '--color-bg': '239 246 255',         // Blue 50
+      '--color-surface': '255 255 255',    // White
+      '--color-surface-alt': '219 234 254',// Blue 100
+      '--color-primary': '37 99 235',      // Blue 600
+      '--color-primary-light': '96 165 250', // Blue 400
+      '--color-accent': '99 102 241',      // Indigo 500
+      '--color-danger': '220 38 38',       // Red 600
+      '--color-text': '30 58 138',         // Blue 900
+      '--color-text-muted': '29 78 216',   // Blue 700
+      '--color-border': '191 219 254',     // Blue 200
+    }
+  },
+  {
+    id: 'fuchsia',
+    name: 'Mystic Fuchsia',
+    colors: {
+      '--color-bg': '253 244 255',         // Fuchsia 50
+      '--color-surface': '255 255 255',    // White
+      '--color-surface-alt': '250 232 255',// Fuchsia 100
+      '--color-primary': '192 38 211',     // Fuchsia 600
+      '--color-primary-light': '232 121 249', // Fuchsia 400
+      '--color-accent': '139 92 246',      // Violet 500
+      '--color-danger': '220 38 38',       // Red 600
+      '--color-text': '112 26 117',        // Fuchsia 900
+      '--color-text-muted': '162 28 175',  // Fuchsia 700
+      '--color-border': '245 208 254',     // Fuchsia 200
+    }
   }
 ];
