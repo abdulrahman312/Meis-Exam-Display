@@ -13,7 +13,7 @@ const App: React.FC = () => {
   const [appState, setAppState] = useState<AppState>({
     examTitle: 'First Semester Final Exam',
     classes: DEFAULT_CLASSES,
-    timerDurationMinutes: 90,
+    timerDurationMinutes: 120,
     theme: 'ocean',
   });
 

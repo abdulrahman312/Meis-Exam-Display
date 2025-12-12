@@ -1,7 +1,29 @@
-import React from 'react';
-import { ARABIC_DUA } from '../constants';
+import React, { useState, useEffect } from 'react';
+import { ARABIC_DUAS } from '../constants';
 
 const DuaBanner: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    // 3 minutes = 180,000 ms
+    const duration = 180000;
+    
+    const interval = setInterval(() => {
+      // Start exit transition
+      setIsVisible(false);
+
+      // Wait for transition to finish (500ms) before changing text and entering
+      setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % ARABIC_DUAS.length);
+        setIsVisible(true);
+      }, 500);
+
+    }, duration);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <style>{`
@@ -27,15 +49,15 @@ const DuaBanner: React.FC = () => {
         />
         
         {/* Inner White Box */}
-        <div className="relative m-[3px] bg-exam-surface rounded-[13px] py-5 px-6 text-center">
+        <div className="relative m-[3px] bg-exam-surface rounded-[13px] py-5 px-6 text-center min-h-[90px] flex items-center justify-center">
           <p 
-            className="font-arabic text-3xl lg:text-4xl font-bold drop-shadow-sm animate-border-slide bg-clip-text text-transparent pb-2" 
+            className={`font-arabic text-3xl lg:text-4xl font-bold drop-shadow-sm bg-clip-text text-transparent pb-2 transition-all duration-500 ease-in-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
             style={{ 
               lineHeight: '1.6',
               backgroundImage: `linear-gradient(90deg, rgb(var(--color-primary)), rgb(var(--color-accent)), rgb(var(--color-primary)))`
             }}
           >
-            {ARABIC_DUA}
+            {ARABIC_DUAS[currentIndex]}
           </p>
         </div>
       </div>
