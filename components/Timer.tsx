@@ -44,11 +44,10 @@ const Timer: React.FC<TimerProps> = ({ durationMinutes }) => {
   const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
   // Progress Ring Calculation
-  // Reduced radius from 180 to 145 to make it smaller
   const radius = 145;
   const strokeWidth = 12; 
-  const center = radius + strokeWidth;
-  const size = center * 2;
+  const center = radius + strokeWidth; // 145 + 12 = 157
+  const size = center * 2; // 314
   const circumference = 2 * Math.PI * radius;
   const progress = timeLeft / totalSeconds;
   const dashOffset = circumference - progress * circumference;
@@ -56,9 +55,8 @@ const Timer: React.FC<TimerProps> = ({ durationMinutes }) => {
   // State checks for styling
   const isLowTime = timeLeft <= 300; // 5 minutes
   
-  // Design system colors
-  const trackColor = '#e2e8f0';
-  const progressColor = isLowTime ? '#e11d48' : '#4f46e5';
+  // Track color
+  const trackColor = 'rgb(var(--color-border))';
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full relative">
@@ -67,14 +65,14 @@ const Timer: React.FC<TimerProps> = ({ durationMinutes }) => {
       <div className="flex gap-4 mb-6 z-20 shrink-0">
         <button
           onClick={toggleTimer}
-          className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white shadow-md border border-exam-border text-exam-primary hover:bg-exam-primary hover:text-white transition-all hover:scale-105 active:scale-95 font-semibold"
+          className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-exam-surface shadow-md border border-exam-border text-exam-primary hover:bg-exam-primary hover:text-white transition-all hover:scale-105 active:scale-95 font-semibold"
         >
           {isActive ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" />}
           {isActive ? 'Pause' : 'Start'}
         </button>
         <button
           onClick={resetTimer}
-          className="p-2.5 rounded-xl bg-white shadow-md border border-exam-border text-exam-danger hover:bg-exam-danger hover:text-white transition-all hover:scale-105 active:scale-95"
+          className="p-2.5 rounded-xl bg-exam-surface shadow-md border border-exam-border text-exam-danger hover:bg-exam-danger hover:text-white transition-all hover:scale-105 active:scale-95"
           title="Reset Timer"
         >
           <RotateCcw size={20} />
@@ -85,11 +83,35 @@ const Timer: React.FC<TimerProps> = ({ durationMinutes }) => {
         {/* Background Decor */}
         <div className={`absolute w-[80%] h-[80%] bg-gradient-to-b ${isLowTime ? 'from-exam-danger/5' : 'from-exam-primary/5'} to-transparent rounded-full blur-3xl opacity-50 pointer-events-none`} />
 
-        {/* SVG Ring - Added max-h constraint */}
+        {/* SVG Ring */}
         <svg 
           viewBox={`0 0 ${size} ${size}`} 
           className="w-auto h-full max-h-[55vh] transform -rotate-90 drop-shadow-xl"
         >
+          <defs>
+            {/* Animated Rotating Gradient for the Progress Ring */}
+            <linearGradient id="timerGradient" gradientUnits="userSpaceOnUse" x1="0" y1={center} x2={size} y2={center}>
+              <stop offset="0%" stopColor="rgb(var(--color-danger))" />
+              <stop offset="50%" stopColor="rgb(var(--color-primary))" />
+              <stop offset="100%" stopColor="rgb(var(--color-accent))" />
+              {/* Rotate the gradient around the center of the circle continuously */}
+              <animateTransform 
+                attributeName="gradientTransform" 
+                type="rotate" 
+                from={`0 ${center} ${center}`} 
+                to={`360 ${center} ${center}`} 
+                dur="12s" 
+                repeatCount="indefinite" 
+              />
+            </linearGradient>
+            
+            {/* Warning Gradient for Low Time */}
+            <linearGradient id="warningGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#ef4444" />
+              <stop offset="100%" stopColor="#dc2626" />
+            </linearGradient>
+          </defs>
+
           {/* Background Circle */}
           <circle
             cx={center}
@@ -97,7 +119,7 @@ const Timer: React.FC<TimerProps> = ({ durationMinutes }) => {
             r={radius}
             stroke={trackColor}
             strokeWidth={strokeWidth}
-            fill="white"
+            fill="rgb(var(--color-surface))"
             className="opacity-50"
           />
           {/* Progress Circle */}
@@ -105,7 +127,7 @@ const Timer: React.FC<TimerProps> = ({ durationMinutes }) => {
             cx={center}
             cy={center}
             r={radius}
-            stroke={progressColor}
+            stroke={isLowTime ? "url(#warningGradient)" : "url(#timerGradient)"}
             strokeWidth={strokeWidth}
             fill="transparent"
             strokeDasharray={circumference}
@@ -115,14 +137,13 @@ const Timer: React.FC<TimerProps> = ({ durationMinutes }) => {
           />
         </svg>
 
-        {/* Inner Content - Centered absolutely */}
+        {/* Inner Content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
           <div className={`flex items-center gap-2 mb-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest ${isLowTime ? 'bg-exam-danger/10 text-exam-danger' : 'bg-exam-primary/10 text-exam-primary'}`}>
             <TimerIcon size={14} />
             <span>Time Remaining</span>
           </div>
           
-          {/* Adjusted font size for smaller circle */}
           <span className={`text-7xl lg:text-8xl font-sans font-bold tracking-tighter tabular-nums transition-colors duration-300 ${isLowTime ? 'text-exam-danger' : 'text-exam-text'}`}>
             {formattedTime}
           </span>

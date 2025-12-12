@@ -5,26 +5,39 @@ const DuaBanner: React.FC = () => {
   return (
     <>
       <style>{`
-        @keyframes shimmer {
+        @keyframes border-slide {
           0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
+          100% { background-position: 200% 50%; }
         }
-        .animate-text-shimmer {
-          background-size: 200% auto;
-          animation: shimmer 5s ease-in-out infinite alternate;
+        .animate-border-slide {
+          animation: border-slide 6s linear infinite;
+          background-size: 200% 100%;
         }
       `}</style>
-      <div className="w-full rounded-2xl bg-gradient-to-r from-blue-50 via-indigo-50 to-blue-50 border border-indigo-100 py-5 px-6 text-center shadow-sm relative overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-exam-primary/20 to-transparent" />
+      
+      {/* Container with Animated Border */}
+      <div className="w-full relative rounded-2xl overflow-hidden shadow-sm">
+        {/* Animated Linear Gradient Background for Border */}
+        {/* Using a sliding linear gradient ensures the border is always complete and uniform */}
+        <div 
+          className="absolute inset-0 animate-border-slide"
+          style={{
+            background: `linear-gradient(90deg, rgb(var(--color-primary)), rgb(var(--color-accent)), rgb(var(--color-primary)))`
+          }}
+        />
         
-        <p 
-          className="font-arabic text-3xl lg:text-4xl font-bold drop-shadow-sm animate-text-shimmer bg-gradient-to-r from-exam-primary via-exam-accent to-exam-primary bg-clip-text text-transparent pb-2" 
-          style={{ lineHeight: '1.6' }}
-        >
-          {ARABIC_DUA}
-        </p>
+        {/* Inner White Box */}
+        <div className="relative m-[3px] bg-exam-surface rounded-[13px] py-5 px-6 text-center">
+          <p 
+            className="font-arabic text-3xl lg:text-4xl font-bold drop-shadow-sm animate-border-slide bg-clip-text text-transparent pb-2" 
+            style={{ 
+              lineHeight: '1.6',
+              backgroundImage: `linear-gradient(90deg, rgb(var(--color-primary)), rgb(var(--color-accent)), rgb(var(--color-primary)))`
+            }}
+          >
+            {ARABIC_DUA}
+          </p>
+        </div>
       </div>
     </>
   );

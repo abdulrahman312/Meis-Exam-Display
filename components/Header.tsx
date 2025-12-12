@@ -19,9 +19,20 @@ const Header: React.FC<HeaderProps> = ({ examTitle }) => {
 
   return (
     <header className="flex items-center justify-between w-full px-8 py-6 shrink-0 z-10">
+      <style>{`
+        @keyframes border-slide {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 200% 50%; }
+        }
+        .animate-border-slide {
+          animation: border-slide 6s linear infinite;
+          background-size: 200% 100%;
+        }
+      `}</style>
+
       {/* Left: School Brand */}
       <div className="flex items-center gap-6">
-        <div className="w-24 h-24 rounded-2xl bg-white p-2 shadow-sm border border-exam-border flex items-center justify-center">
+        <div className="w-24 h-24 rounded-2xl bg-exam-surface p-2 shadow-sm border border-exam-border flex items-center justify-center">
           <img src={LOGO_URL} alt="MEIS Logo" className="w-full h-full object-contain" />
         </div>
         <div className="flex flex-col">
@@ -34,17 +45,34 @@ const Header: React.FC<HeaderProps> = ({ examTitle }) => {
         </div>
       </div>
 
-      {/* Center: Exam Title */}
-      <div className="flex flex-col items-center justify-center flex-1 mx-8 text-center">
-        <div className="px-12 py-5 bg-white rounded-3xl border border-exam-border shadow-sm transform hover:scale-[1.02] transition-transform duration-300">
-          <h2 className="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-exam-primary to-exam-accent tracking-tight leading-none pb-1">
-            {examTitle}
-          </h2>
+      {/* Center: Exam Title with Animated Border */}
+      <div className="flex flex-col items-center justify-center flex-1 mx-4 lg:mx-8 text-center min-w-0">
+        <div className="relative group rounded-3xl overflow-hidden shadow-sm transform hover:scale-[1.02] transition-transform duration-300 inline-block max-w-full">
+          {/* Animated Linear Gradient Border Background */}
+          {/* Using a sliding linear gradient ensures the border is always complete and uniform */}
+          <div 
+            className="absolute inset-0 animate-border-slide" 
+            style={{
+              background: `linear-gradient(90deg, rgb(var(--color-primary)), rgb(var(--color-accent)), rgb(var(--color-primary)))`
+            }}
+          />
+          
+          {/* Inner Content */}
+          <div className="relative m-[3px] bg-exam-surface rounded-[21px] px-8 py-4 lg:px-12 lg:py-5">
+            <h2 
+              className="text-3xl md:text-4xl lg:text-5xl font-black text-transparent bg-clip-text animate-border-slide tracking-tight leading-none pb-1 whitespace-nowrap"
+              style={{
+                backgroundImage: `linear-gradient(90deg, rgb(var(--color-primary)), rgb(var(--color-accent)), rgb(var(--color-primary)))`
+              }}
+            >
+              {examTitle}
+            </h2>
+          </div>
         </div>
       </div>
 
-      {/* Right: Date/Time Widget */}
-      <div className="flex items-center gap-6">
+      {/* Right: Date/Time */}
+      <div className="flex items-center gap-8">
         <div className="hidden lg:flex flex-col items-end text-right">
           <div className="flex items-center gap-2 text-exam-textMuted text-lg font-semibold mb-1">
             <Calendar size={20} className="text-exam-primary" />

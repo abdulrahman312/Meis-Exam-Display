@@ -30,14 +30,18 @@ const Instructions: React.FC = () => {
         </span>
       </div>
       
-      <div className="flex-1 overflow-y-auto p-6 custom-scrollbar bg-white">
-        <ul className="space-y-4">
+      {/* 
+          Changed from overflow-y-auto to overflow-hidden.
+          Using flex-col and justify-between to distribute items evenly in the available space.
+      */}
+      <div className="flex-1 p-6 bg-white overflow-hidden min-h-0">
+        <ul className="flex flex-col justify-between h-full">
           {INSTRUCTIONS.map((inst, idx) => (
-            <li key={idx} className="flex gap-4 group">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-exam-surfaceAlt border border-exam-border flex items-center justify-center text-exam-primary font-bold text-sm group-hover:bg-exam-primary group-hover:text-white transition-colors">
+            <li key={idx} className="flex gap-4 group items-center">
+              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-exam-surfaceAlt border border-exam-border flex items-center justify-center text-exam-primary font-bold text-sm group-hover:bg-exam-primary group-hover:text-white transition-colors shadow-sm">
                 {idx + 1}
               </span>
-              <p className="text-lg text-exam-text/90 leading-relaxed pt-0.5">
+              <p className="text-base xl:text-lg text-exam-text/90 leading-tight">
                 {processText(inst)}
               </p>
             </li>
