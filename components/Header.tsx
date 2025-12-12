@@ -28,13 +28,32 @@ const Header: React.FC<HeaderProps> = ({ examTitle }) => {
           animation: border-slide 6s linear infinite;
           background-size: 200% 100%;
         }
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+          animation: spin-slow 8s linear infinite;
+        }
       `}</style>
 
       {/* Left: School Brand */}
       <div className="flex items-center gap-6">
-        <div className="w-24 h-24 rounded-2xl bg-exam-surface p-2 shadow-sm border border-exam-border flex items-center justify-center">
-          <img src={LOGO_URL} alt="MEIS Logo" className="w-full h-full object-contain" />
+        <div className="relative w-24 h-24 flex items-center justify-center">
+          {/* Animated Glowing Background */}
+          <div 
+            className="absolute -inset-1 rounded-full blur-md opacity-75 animate-spin-slow"
+            style={{
+              background: `conic-gradient(from 0deg, rgb(var(--color-primary)), rgb(var(--color-accent)), rgb(var(--color-danger)), rgb(var(--color-primary)))`
+            }}
+          />
+          
+          {/* Logo Container */}
+          <div className="relative w-full h-full rounded-full bg-exam-surface flex items-center justify-center z-10 overflow-hidden">
+            <img src={LOGO_URL} alt="MEIS Logo" className="w-full h-full object-cover" />
+          </div>
         </div>
+
         <div className="flex flex-col">
           <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-exam-text">
             MEIS – Al Muruj
