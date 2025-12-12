@@ -94,13 +94,6 @@ const App: React.FC = () => {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full py-4 text-center shrink-0 bg-exam-bg border-t border-exam-border/50 z-10 relative shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)]">
-        <p className="text-xs md:text-sm font-bold text-exam-primary uppercase tracking-widest">
-          Developed by MEIS ICT Department
-        </p>
-      </footer>
-
       {/* Action Buttons Container - Bottom Left */}
       <div className="fixed bottom-8 left-8 z-50 flex flex-col gap-4">
         
