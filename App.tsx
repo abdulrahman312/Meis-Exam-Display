@@ -11,7 +11,7 @@ import { DEFAULT_CLASSES, THEMES } from './constants';
 
 const App: React.FC = () => {
   const [appState, setAppState] = useState<AppState>({
-    examTitle: 'First Semester Final Exam',
+    examTitle: 'Second Semester Final Exam',
     classes: DEFAULT_CLASSES,
     timerDurationMinutes: 120,
     theme: 'ocean',
